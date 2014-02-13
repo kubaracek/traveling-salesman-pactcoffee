@@ -20,4 +20,20 @@ describe Delivery do
   describe 'get_address' do
     its(:get_address) { should eql "#{post_code}" }
   end
+
+  describe 'set_lat_lng_remotely' do
+    before { PactCoffeeGeoService.stubs(:get_lat_lng).returns({lat: 55, lng: 43}) }
+
+    it 'should set lat' do
+      subject.set_lat_lng_remotely
+
+      subject.lat.should eql 55.0
+    end
+
+    it 'should set lng' do
+      subject.set_lat_lng_remotely
+
+      subject.lng.should eql 43.0
+    end
+  end
 end
