@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140213195150) do
 
-  create_table "addresses", force: true do |t|
+  create_table "deliveries", force: true do |t|
     t.string   "post_code"
     t.float    "lat"
     t.float    "lng"

@@ -1,6 +1,6 @@
-class CreateAddresses < ActiveRecord::Migration
+class CreateDeliveries < ActiveRecord::Migration
   def change
-    create_table :addresses do |t|
+    create_table :deliveries do |t|
       t.string :post_code
       t.float :lat
       t.float :lng

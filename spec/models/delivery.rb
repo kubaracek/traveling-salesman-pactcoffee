@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Address do
-  subject { Address.new({post_code: post_code, lat: lat, lng: lng}) }
+describe Delivery do
+  subject { Delivery.new({post_code: post_code, lat: lat, lng: lng}) }
   let(:post_code) { 'E15 1ED' }
   let(:lat) { 51.551011 }
   let(:lng) { -0.001743 }
