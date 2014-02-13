@@ -3,6 +3,7 @@ require 'pact_coffee_geo_service'
 class Delivery < ActiveRecord::Base
 
   validates_numericality_of :lat, :lng, allow_blank: true
+  validates_presence_of :post_code
 
   # Actually this method should return address as one-line string built from
   # address parameters like House number, street, post-code but in this example

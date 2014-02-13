@@ -12,6 +12,7 @@ describe Delivery do
 
   it { should validate_numericality_of(:lat) }
   it { should validate_numericality_of(:lng) }
+  it { should validate_presence_of(:post_code) }
 
 
   # Actually this method should return address as one-line string built from
