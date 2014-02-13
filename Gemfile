@@ -33,7 +33,7 @@ group :doc do
 end
 
 gem :test do
-  gem 'rspec'
+  gem 'rspec-rails'
 end
 
 # Use ActiveModel has_secure_password
