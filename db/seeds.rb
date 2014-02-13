@@ -60,5 +60,7 @@ post_codes = [
   "N1 4PU",
   "SW9 8AA"
 ]
+puts "Populating addresses: start \n"
 #create all the addresses
-post_codes.each { |code| Address.create({post_code: code}) }
+post_codes.each { |code| Address.create!({post_code: code}) }
+puts "Populating addresses: done \n"
