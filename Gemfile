@@ -36,7 +36,10 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'webmock'
+  gem 'mocha'
 end
+
+gem 'httparty'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
