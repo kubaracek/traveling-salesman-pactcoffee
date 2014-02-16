@@ -36,6 +36,7 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'mocha'
+  gem 'webmock'
 end
 
 gem 'httparty'
