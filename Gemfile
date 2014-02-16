@@ -40,6 +40,7 @@ group :test do
 end
 
 gem 'httparty'
+gem 'extremal_opt_tsp'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
