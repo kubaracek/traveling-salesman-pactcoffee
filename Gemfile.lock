@@ -126,6 +126,10 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+<<<<<<< HEAD
+=======
+  httparty
+>>>>>>> parent of 0f5ad05... Removed http api gem and http helper for specs from gemfile
   jbuilder (~> 1.2)
   jquery-rails
   mocha

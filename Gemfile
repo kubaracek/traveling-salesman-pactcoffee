@@ -38,6 +38,8 @@ group :test do
   gem 'mocha'
 end
 
+gem 'httparty'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
