@@ -1,4 +1,35 @@
 <div id="map"></div>
+<h2>The Implementation</h2>
+<p>To make the route efficient is basically not as easy as it could look like. The problem is called <a href="http://en.wikipedia.org/wiki/Travelling_salesman_problem">Travelling Salesman problem</a>(Yeah it has also it's own wikipedia page). Firstly I thought that picking nearest addresses one by one should work but when you think about it it makes no sense and the route would be completelly inefficient.</p>
+<p>Counting the most effective route would take a lot of time, using 50+ addresses literally hours. So I used an genetic algorithm called <b>Ant colony optimization</b>. Even for this genetic algorith it takes about <b>20secs</b> to count an efficient route.</p>
+<p>I couldn't find a better solution and there is probably none for an individual or a small company. Because of the resource-heaviness of calculating the most efficient route, all the APIs which are publicly available allow users to use only few addresses (google allows to use 8)</p>
+
+<p>
+So the solution is this:
+<ul>
+  <li>Count the main route using the genetic algorithm. This will give the biker an idea of the route in general (The map above this text is the route from the algorithm)</li>
+  <li>Then with the route already counted, give the biker more precise route using the google API (We can take upcoming 8 addresses from the main route). <a id="directions-api" href="">The example is here</a></li>
+</ul>
+This allow us to count the main route on our servers and of course for-free* and give the biker precise route (which roads he should use etc..) though the google API. So for example, if the biker is on address which our algorithm counted as 6th address, then we make API request to google to give us more precise route for upcoming 8 addresses which our algorithm selected as 'upcomming'.
+</p>
+<p>It may sound complicated, actually it's not. The implementation itself is easy, but the whole feature is quite big and probably should be splitted into more parts. Firstly we need lat-lng position of each address, this is trivial I could implemented that in few minutes. Then add the algorithm (a bit harder, but I could do that :P). Background processing for the route counting (to <b>NOT</b> block webserver while we count new route for our biker!). Front-end for the biker</p>
+
+<h2>Pros:</h2>
+<ul>
+<li>Google would take $10,000 a month if you need to count route for 22+ addresses, this solution is free</li>
+<li>It still uses either google or another map service to get the precise route for biker (At the next junction turn left)</li>
+<li>You can add more features easily (for example split London to 3 parts and let 3 bikers to do their deliveries, each one would have his own route)</li>
+<li>... ?</li>
+
+</ul>
+
+<h2>Cons:</h2>
+<ul>
+<li>It's resource heavy, but as I mentioned. There is probably no other solution which would be free (Maybe I overlooked some but after couple of hours of googling I couldn't find an API which would give you an optimized route for 10+ addresses for free. The APIs are REALLY expensive)</li>
+<li>It's a genetic algorithm, it never give you same result as all the counting is a bit random.</li>
+</ul>
+
+<p>As I mentioned before this algorithm is pretty heavy and </p>
 <script type="text/javascript">
 $(document).ready(function() {
   // create a map in the "map" div, set the view to a given place and zoom
@@ -18,32 +49,26 @@ $(document).ready(function() {
     }
   };
 
-  var mapApiBase = 'http://maps.googleapis.com/maps/api/directions/json?';
-  var origin = 'origin=' + routeData[0][0] + ',' + routeData[0][1];
-  var destination = '&destination=' + routeData[7][0] + ',' + routeData[7][1];
-  var waypoints = '&waypoints=';
-  for(var i=1;i<7;i++){
-    waypoints += routeData[i][0] +","+ routeData[i][1];
-    //Do not add the semicolon to last one
-    if(i<7){
-      waypoints += "|";
-    }
-  }
-  var apiUrl = mapApiBase + origin + waypoints + destination + '&sensor=false';
-
-  jQuery.get(apiUrl, function(result) {
-    if(result) {
-      result.routes[0].legs.each(function(leg) {
-        leg.steps.each(function(step) {
-          console.log(step.polyline.points)
-        });
-      });
-    }
-  });
+  //Just connect first mark with last one to make a 'circle' road
+  L.polyline([L.latLng(routeData[0]), L.latLng(routeData[routeData.length-1])], {color: 'red'}).addTo(map);
 
   for(var i=0;i<marks.length;i++){
     L.marker(marks[i]).addTo(map);
   }
+
+
+
+  //Google link
+  var mapApiBase = 'https://www.google.com/maps/dir/';
+  for(var i=0;i<8;i++){
+    mapApiBase += routeData[i][0] +","+ routeData[i][1];
+    //Do not add the semicolon to last one
+    if(i<8){
+      mapApiBase += "/";
+    }
+  }
+
+  jQuery('a#directions-api').prop('href', mapApiBase);
 });
 </script>
 
