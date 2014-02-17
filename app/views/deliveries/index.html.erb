@@ -14,9 +14,32 @@ $(document).ready(function() {
 
   for(var i=0;i<routeData.length;i++){
     if(i+1 <= routeData.length - 1) {
-      L.polyline([L.latLng(routeData[i]), L.latLng(routeData[i+1])]).addTo(map);
+      L.polyline([L.latLng(routeData[i]), L.latLng(routeData[i+1])], {color: 'red'}).addTo(map);
     }
   };
+
+  var mapApiBase = 'http://maps.googleapis.com/maps/api/directions/json?';
+  var origin = 'origin=' + routeData[0][0] + ',' + routeData[0][1];
+  var destination = '&destination=' + routeData[7][0] + ',' + routeData[7][1];
+  var waypoints = '&waypoints=';
+  for(var i=1;i<7;i++){
+    waypoints += routeData[i][0] +","+ routeData[i][1];
+    //Do not add the semicolon to last one
+    if(i<7){
+      waypoints += "|";
+    }
+  }
+  var apiUrl = mapApiBase + origin + waypoints + destination + '&sensor=false';
+
+  jQuery.get(apiUrl, function(result) {
+    if(result) {
+      result.routes[0].legs.each(function(leg) {
+        leg.steps.each(function(step) {
+          console.log(step.polyline.points)
+        });
+      });
+    }
+  });
 
   for(var i=0;i<marks.length;i++){
     L.marker(marks[i]).addTo(map);
