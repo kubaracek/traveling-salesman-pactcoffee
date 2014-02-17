@@ -1,18 +1,20 @@
 <div id="map"></div>
 <h2>The Implementation</h2>
-<p>To make the route efficient is basically not as easy as it could look like. The problem is called <a href="http://en.wikipedia.org/wiki/Travelling_salesman_problem">Travelling Salesman problem</a>(Yeah it has also it's own wikipedia page). Firstly I thought that picking nearest addresses one by one should work but when you think about it it makes no sense and the route would be completelly inefficient.</p>
-<p>Counting the most effective route would take a lot of time, using 50+ addresses literally hours. So I used an genetic algorithm called <b>Ant colony optimization</b>. Even for this genetic algorith it takes about <b>20secs</b> to count an efficient route.</p>
-<p>I couldn't find a better solution and there is probably none for an individual or a small company. Because of the resource-heaviness of calculating the most efficient route, all the APIs which are publicly available allow users to use only few addresses (google allows to use 8)</p>
+<p>To make the route efficient is basically not as easy as it could look like. The problem is called <a href="http://en.wikipedia.org/wiki/Travelling_salesman_problem">Travelling Salesman problem</a>(Yeah it has also it's own wikipedia page). Firstly I thought that picking nearest addresses one by one should work but when you think about it, it makes no sense and the route would be completelly inefficient.</p>
+<p>Counting the most effective route would take a lot of time, using 50+ addresses literally hours. So I used an genetic algorithm called <b>Ant colony optimization</b>. Even for this genetic algorith it takes about <b>20secs</b> to count an efficient route (It depends on settings, I found 200 iterations using 10 ants pretty solid for 50 addresses).</p>
+<p>I couldn't find a better solution and there is probably none for an individual or a small company. Because of the resource-heaviness of calculating the most efficient route, all the APIs which are publicly available allow users to use only few addresses (google allows to use 8 for individual and 22 for business account holders, 22+ addresses costs $10,0000 a month)</p>
 
 <p>
 So the solution is this:
 <ul>
   <li>Count the main route using the genetic algorithm. This will give the biker an idea of the route in general (The map above this text is the route from the algorithm)</li>
-  <li>Then with the route already counted, give the biker more precise route using the google API (We can take upcoming 8 addresses from the main route). <a id="directions-api" href="">The example is here</a></li>
+  <li>Then with the route already counted, give the biker more precise route using the google API (We can take upcoming 8 addresses from the main route). <a id="directions-api" href="">An example is here (the url is generated)</a></li>
 </ul>
 This allow us to count the main route on our servers and of course for-free* and give the biker precise route (which roads he should use etc..) though the google API. So for example, if the biker is on address which our algorithm counted as 6th address, then we make API request to google to give us more precise route for upcoming 8 addresses which our algorithm selected as 'upcomming'.
 </p>
 <p>It may sound complicated, actually it's not. The implementation itself is easy, but the whole feature is quite big and probably should be splitted into more parts. Firstly we need lat-lng position of each address, this is trivial I could implemented that in few minutes. Then add the algorithm (a bit harder, but I could do that :P). Background processing for the route counting (to <b>NOT</b> block webserver while we count new route for our biker!). Front-end for the biker</p>
+
+<p>Do you like it? Or do you have some better idea of how to implement this?</p>
 
 <h2>Pros:</h2>
 <ul>
@@ -28,8 +30,6 @@ This allow us to count the main route on our servers and of course for-free* and
 <li>It's resource heavy, but as I mentioned. There is probably no other solution which would be free (Maybe I overlooked some but after couple of hours of googling I couldn't find an API which would give you an optimized route for 10+ addresses for free. The APIs are REALLY expensive)</li>
 <li>It's a genetic algorithm, it never give you same result as all the counting is a bit random.</li>
 </ul>
-
-<p>As I mentioned before this algorithm is pretty heavy and </p>
 <script type="text/javascript">
 $(document).ready(function() {
   // create a map in the "map" div, set the view to a given place and zoom
