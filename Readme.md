@@ -1,6 +1,6 @@
 # Warning
 
-I have done this in late 2013 or early 2014 (I Think). Most of the assumptions are probably invalid today. Please note that this was done in maybe a two days of my free time including the research of the problem. Better solutions exist already for example [A parallel cooperative hybrid method based on ant colony optimization and 3-Opt algorithm for solving traveling salesman problem](https://link.springer.com/article/10.1007/s00500-016-2432-3)
+I have done this in late 2013 or early 2014 (I Think). Most of the assumptions are probably invalid today. Please note that this was done in maybe two days of my free time including the research of the problem. Better solutions do exist already. For example [A parallel cooperative hybrid method based on ant colony optimization and 3-Opt algorithm for solving traveling salesman problem](https://link.springer.com/article/10.1007/s00500-016-2432-3)
 
 # Why this exists
 
