@@ -11,7 +11,6 @@
 post_codes = [
   
   "W11 4BP",
-  "SE8 3FG",
   "SE17 2HT",
   "N7 0SU",
   "E9 6BQ",
@@ -21,7 +20,6 @@ post_codes = [
   "SW2 4BL",
   "E1 8RZ",
   "EC3R 6EN",
-  "N12AR",
   "SE5 9BU",
   "SE5 9LB",
   "NW1 4EG",
