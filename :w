@@ -1,6 +1,6 @@
 # Warning
 
-I have done this in late 2013 or early 2014 (I Think). Most of the assumptions are probably invalid today. Please note that this was done in maybe a two days of my free time including the research of the problem. Better solutions exist already for example [A parallel cooperative hybrid method based on ant colony optimization and 3-Opt algorithm for solving traveling salesman problem](https://link.springer.com/article/10.1007/s00500-016-2432-3)
+I have done this in late 2013 or early 2014 (I Think). Most of the assumptions are probably invalid today.
 
 # Why this exists
 
@@ -10,7 +10,6 @@ This was my proposal / proof of concept to show management that his route could 
 
 ## known issues
   - This solution doesn't respect obstacles eg. neither water (river Themes) nor buildings
-  - Given the nature of the algorithm it does not always delivers the same result
 
 
 # Implementation
